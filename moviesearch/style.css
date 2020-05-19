@@ -1,24 +1,37 @@
 :root {
-	--width: 10vw;
-};
-* { font-family: sans-serif}
-input {min-width: var(--width)}
+  --width: 10vw;
+}
+
+;
+* {
+  font-family: sans-serif
+}
+
+input {
+  min-width: var(--width)
+}
+
+form {
+  text-align: center
+}
+
 .card-list {
-display: flex;
-flex-flow: row wrap;
-margin-top: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 1em;
 }
 
 .card--image {
-width: var(--width); 
-margin: auto; 
+  width: var(--width);
+  margin: auto;
 }
 
 .card p {
-font-size: 2vmin;
-max-width: var(--width);
+  font-size: 2vmin;
+  max-width: var(--width);
+  text-align: center;
 }
 
 .card {
-    border: 5px solid transparent;
+  border: 5px solid transparent;
 }
