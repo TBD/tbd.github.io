@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+	<title>mgfx</title>
+	<style type="text/css">
+		* {text-align: center; margin: 0; padding: 0; font-family: sans-serif;}
+		img {height: 100vh;}
+		input[type="range"] {width: 30vw}	
+		hr{position:absolute;border:1px solid black;width:100vw;}	
+		/*#p{position: absolute; top:0;left:0;opacity: 0.5}*/
+		#getFile {opacity: 0}
+		
+		#btn-back {
+			background-color: #5EED6E;
+		}
+		#btn {
+			display: flex;
+			justify-content: space-between;
+			margin: 0 auto;
+			font-size: 5vmin;
+		}
+		#btn > div {
+			background: #873a55;
+			color: #5EED6E;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 24.5%;
+			height: 3em;
+			cursor: pointer;
+		}
+		#btn > div:active {
+			/*background-color: maroon;*/
+			color: white;
+		}
+
+		#zoom {
+			position: relative;
+			overflow: scroll;
+		}
+
+		#zoom img {
+			position: absolute;
+			height: 100%;
+			transform: scale(20);
+		}
+
+		input[type=range] {
+			-webkit-appearance: none;
+			margin: 18px 0;
+			width: 100%;
+		}
+		input[type=range]:focus {
+			outline: none;
+		}
+		input[type=range]::-webkit-slider-runnable-track {
+			width: 100%;
+			height: 16px;
+			cursor: pointer;
+			background: #873a55;
+		}
+		input[type=range]::-webkit-slider-thumb {
+			border: 3px solid #873a55;
+			height: 36px;
+			width: 32px;
+			border-radius: 3px;
+			background: #5EED6E;
+			cursor: pointer;
+			-webkit-appearance: none;
+			margin-top: -10px;
+		}
+		input[type=range]:focus::-webkit-slider-runnable-track {
+			background: #873a55;
+		}
+
+
+	</style>
+	<script src="dist/index.js"></script>
+</head>
+<body>
+	<div id="btn-back">
+		<div id="btn">
+			<div id="open">open</div>
+			<div id="crop">crop</div>
+			<div id="save">save</div>
+			<div id="zoom">preview</div>
+		</div>
+	</div>
+
+
+	<input id="slider" type="range" min=0.1 max=0.5 value=0.3 step=0.01><br/>
+	<!-- <hr id="m1"/> -->
+	<!-- <hr id="m2"/> -->
+	<img id="preview">
+	<br><input id="getFile" type="file" accept="image/*">
+	<canvas id="p"></canvas>
+	
+	<script>
+		const ui = new UI({
+			'open': document.querySelector('#open'),
+			'slider':  document.querySelector('#slider'),
+			'save':    document.querySelector('#save'),
+			'preview': document.querySelector('#preview')
+		})
+	</script>
+</body>
+</html>
