@@ -1,108 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>moviesearch</title>
-    <style type="text/css">
-        :root {
-          --width: 10vw;
-      }
-      * {
-          font-family: sans-serif;
-          text-align: center;
-      }
-      input {
-          min-width: var(--width);
-      }
-      .card-list {
-          display: flex;
-          flex-flow: row wrap;
-          margin-top: 1em;
-      }
+	<title>moviesearch</title>
+	<style type="text/css">
+		:root {
+			--width: 10vw;
+		}
+		* {
+			font-family: sans-serif;
+			text-align: center;
+		}
+		input {
+			min-width: var(--width);
+		}
+		.card-list {
+			display: flex;
+			flex-flow: row wrap;
+			margin-top: 1em;
+		}
 
-      .card-image {
-          width: var(--width);
-          margin: auto;
-      }
+		.card-image {
+			width: var(--width);
+			margin: auto;
+		}
 
-      .card p {
-          font-size: 2vmin;
-          max-width: var(--width);
-      }
+		.card p {
+			font-size: 2vmin;
+			max-width: var(--width);
+		}
 
-      .card {
-          border: 5px solid transparent;
-      }
-  </style>
+		.card {
+			border: 5px solid transparent;
+		}
+	</style>
 
 </head>
 <body>
-    <div>
-      <form class="form">
-        <input
-        type="text"
-        name="query"
-        placeholder="enter movie name"
-        value='idiocracy'
-        autofocus
-        />
-        <button  type="submit">Search</button>
-    </form>
-    <div class="card-list"></div>
-    <template id="movie">
-        <div class='card'>
-            <a href="https://imdb.com/find?q={{movie.title}}">
-            <img 
-                class='card-image'
-                title='{{movie.overview}}' 
-                src=https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}} />
-            </a>
-            <p>{{movie.title}}</p>
-        </div>
-        
-    </template>
-</div>
+	<div>
+		<form class="form">
+			<input
+			type="text"
+			name="query"
+			placeholder="enter movie name"
+			value='idiocracy'
+			autofocus
+			/>
+			<button  type="submit">Search</button>
+		</form>
+		<div class="card-list"></div>
+
+		<template id="movie">
+			<div class='card'>
+				<a href="https://imdb.com/find?q={{movie.title}}">
+					<img 
+					class='card-image'
+					title='{{movie.overview}}' 
+					src=https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}} />
+				</a>
+				<p>{{movie.title}}</p>
+			</div>      
+		</template>
+	</div>
 
 
-<script type="text/javascript">
-    function setup(){
-        const form = document.querySelector('form')
+	<script type="text/javascript">
+		function setup(){
+			const form = document.querySelector('form')
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();            
-            formData = new FormData(form)
-            const query = formData.get('query').trim()
-            if (query) searchMovies(query)
-        })
-    }
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();            
+				formData = new FormData(form)
+				const query = formData.get('query').trim()
+				if (query) searchMovies(query)
+			})
+		}
 
-    document.addEventListener('DOMContentLoaded', () => { setup() })
+		document.addEventListener('DOMContentLoaded', () => { setup() })
 
-    async function searchMovies(query) {
-        const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=5dcf7f28a88be0edc01bbbde06f024ab&language=en-US&query=${query}&page=1&include_adult=false`
+		async function searchMovies(query) {
+			const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=5dcf7f28a88be0edc01bbbde06f024ab&language=en-US&query=${query}&page=1&include_adult=false`
 
-        try {
-            const res = await fetch(searchURL)
-            const data = await res.json()
-            setMovies(data.results)
-        } catch (err) {
-            console.error(err)
-        }
-        
-    }
+			try {
+				const res = await fetch(searchURL)
+				const data = await res.json()
+				setMovies(data.results)
+			} catch (err) {
+				console.error(err)
+			}
 
-    function templateMovie(movieJSON) {
-        return movie.innerHTML
-            .replace(/{{movie.title}}/g, movieJSON.title)
-            .replace(/{{movie.overview}}/g, movieJSON.overview)
-            .replace(/{{movie.poster_path}}/g, movieJSON.poster_path)
-    }
+		}
 
-    function setMovies(movies) {
-        const output = []
-        movies.filter(movie => movie.poster_path).map(movie => output.push(templateMovie(movie)))
-        document.querySelector('.card-list').innerHTML = output.join('')
-    }
-</script>
+		function templateMovie(movieJSON) {
+			return movie.innerHTML
+				.replace(/{{movie.title}}/g, movieJSON.title)
+				.replace(/{{movie.overview}}/g, movieJSON.overview)
+				.replace(/{{movie.poster_path}}/g, movieJSON.poster_path)
+		}
+
+		function setMovies(movies) {
+			const output = []
+			movies
+				.filter(movie => movie.poster_path)
+				.map(movie => output.push(templateMovie(movie)))
+			document.querySelector('.card-list').innerHTML = output.join('')
+		}
+	</script>
 
 </body>
 </html>
