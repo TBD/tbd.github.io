@@ -57,7 +57,7 @@
 					title='{{movie.overview}}' 
 					src=https://image.tmdb.org/t/p/w185_and_h278_bestv2{{movie.poster_path}} />
 				</a>
-				<p>{{movie.title}}</p>
+				<p>{{movie.title}} ({{movie.release_date}})</p>
 			</div>      
 		</template>
 	</div>
@@ -95,6 +95,7 @@
 				.replace(/{{movie.title}}/g, movieJSON.title)
 				.replace(/{{movie.overview}}/g, movieJSON.overview)
 				.replace(/{{movie.poster_path}}/g, movieJSON.poster_path)
+				.replace(/{{movie.release_date}}/g, movieJSON.release_date.split('-')[0])				
 		}
 
 		function setMovies(movies) {
